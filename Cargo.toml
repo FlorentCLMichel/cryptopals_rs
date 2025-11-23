@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 lazy_static = "1.*"
+openssl = "0.10"
 
 [[bin]]
 name = "challenge_4"
@@ -13,3 +14,7 @@ path = "bin/challenge_4.rs"
 [[bin]]
 name = "challenge_6"
 path = "bin/challenge_6.rs"
+
+[[bin]]
+name = "challenge_7"
+path = "bin/challenge_7.rs"
