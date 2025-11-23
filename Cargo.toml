@@ -1,0 +1,15 @@
+[package]
+name = "cryptopals"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lazy_static = "1.*"
+
+[[bin]]
+name = "challenge_4"
+path = "bin/challenge_4.rs"
+
+[[bin]]
+name = "challenge_6"
+path = "bin/challenge_6.rs"
