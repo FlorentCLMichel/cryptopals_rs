@@ -46,7 +46,7 @@ fn edit_distance(lhs: &[u8], rhs: &[u8]) -> u32
 /// If their lengths are different, the longer sequence is truncated.
 pub fn edit_distance_str(lhs: &str, rhs: &str) -> u32
 {
-    edit_distance(&lhs.as_bytes(), &rhs.as_bytes())
+    edit_distance(lhs.as_bytes(), rhs.as_bytes())
 }
 
 

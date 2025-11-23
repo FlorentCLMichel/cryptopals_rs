@@ -1,4 +1,4 @@
-.PHONY: test build_debug clean
+.PHONY: test build_debug build_release clippy clean
 
 test:
 	cargo test --offline
@@ -8,6 +8,9 @@ build_debug:
 
 build_release:
 	cargo build --release --offline
+
+clippy:
+	cargo clippy --offline
 
 clean: 
 	rm -f Cargo.lock

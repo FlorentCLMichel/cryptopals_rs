@@ -3,12 +3,12 @@ fn encode_base64(x: &[u8]) -> Vec<u8>
 {
     x.iter().map(|&e| {
         match e {
-            f if f < 26 => ('A' as u8) + f,
-            f if f < 52 => ('a' as u8) + (f - 26),
-            f if f < 62 => ('0' as u8) + (f - 52),
-            62 => '+' as u8,
-            63 => '/' as u8,
-            _ => '=' as u8
+            f if f < 26 => b'A' + f,
+            f if f < 52 => b'a' + (f - 26),
+            f if f < 62 => b'0' + (f - 52),
+            62 => b'+',
+            63 => b'/',
+            _ => b'='
         }
     }).collect()
 }
@@ -17,16 +17,16 @@ fn encode_base64(x: &[u8]) -> Vec<u8>
 /// Base64 decoding
 fn decode_base64(x: &[u8]) -> Vec<u8> 
 {
-    let char1 = 'A' as u8;
-    let char2 = 'a' as u8;
-    let char3 = '0' as u8;
+    let char1 = b'A';
+    let char2 = b'a';
+    let char3 = b'0';
     x.iter().map(|&e| {
         match e {
             f if f >= char1 && f - char1 < 26 => f - char1,
             f if f >= char2 && f - char2 < 26 => f - char2 + 26,
             f if f >= char3 && f - char3 < 10 => f - char3 + 52,
-            f if f == '+' as u8 => 62,
-            f if f == '/' as u8 => 63,
+            b'+' => 62,
+            b'/' => 63,
             _ => 255
         }
     }).collect()
@@ -114,7 +114,7 @@ pub fn hex_to_base64(x: &[u8]) -> Vec<u8>
 /// Convert an array of bytes encoded as Base64 to a standard array of bytes
 pub fn hex_from_base64(x: &[u8]) -> Vec<u8> 
 {
-    base_256_from_base_64(&decode_base64(&x))
+    base_256_from_base_64(&decode_base64(x))
 }
 
 

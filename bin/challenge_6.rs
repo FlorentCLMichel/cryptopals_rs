@@ -19,13 +19,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
     data.retain(|c| !c.is_whitespace());
 
     // Base64 decoding
-    let data_decoded = hex_from_base64(&data[..data.len()-1].as_bytes());
+    let data_decoded = hex_from_base64(&data.as_bytes()[..data.len()-1]);
      
     // Determine the most likely key length
     let mut best_key_size = MIN_KEY_SIZE;
     let mut best_avg_distance = avg_hamming_distance(&data_decoded, MIN_KEY_SIZE, N_BLOCKS);
     for key_size in MIN_KEY_SIZE ..= MAX_KEY_SIZE {
-        let avg_distance = avg_hamming_distance(&data_decoded, key_size, (N_BLOCKS * MAX_KEY_SIZE + key_size - 1) / key_size);
+        let avg_distance = avg_hamming_distance(&data_decoded, key_size, (N_BLOCKS * MAX_KEY_SIZE).div_ceil(key_size));
         if avg_distance < best_avg_distance {
             best_key_size = key_size;
             best_avg_distance = avg_distance;
@@ -40,7 +40,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
         let data_row = data_decoded.iter()
                                    .skip(key_index)
                                    .step_by(best_key_size)
-                                   .map(|&x| x)
+                                   .copied()
                                    .collect::<Vec<u8>>();
 
         // Break single-byte XOR encryption

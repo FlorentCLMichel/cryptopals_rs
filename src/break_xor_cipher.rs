@@ -13,17 +13,17 @@ pub fn break_single_byte_xor(cipher: &[u8], freq_symbols: &HashMap<u8, f64>) -> 
 {
     // First try with the key 0;
     let mut best_key: u8 = 0;
-    let mut best_score = squared_diff_freqs_els(&single_byte_xor(&cipher, best_key), freq_symbols);
+    let mut best_score = squared_diff_freqs_els(&single_byte_xor(cipher, best_key), freq_symbols);
 
     // Loop over the other possible keys to find the best one
     for key in 0 .. 255 {
-        let score = squared_diff_freqs_els(&single_byte_xor(&cipher, key), freq_symbols);
+        let score = squared_diff_freqs_els(&single_byte_xor(cipher, key), freq_symbols);
         if score < best_score {
             best_score = score;
             best_key = key;
         }
     }
-    single_byte_xor(&cipher, best_key)
+    single_byte_xor(cipher, best_key)
 }
 
 
