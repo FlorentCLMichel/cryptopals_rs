@@ -19,7 +19,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
 
     // Decrypt using AES-128-ECB
     let key = KEY.as_bytes();
-    let data_decrypted = decrypt(Cipher::aes_128_ecb(), &key, None, &data_decoded)?;
+    let data_decrypted = decrypt(Cipher::aes_128_ecb(), key, None, &data_decoded)?;
 
     // Print the result
     println!("{}", str::from_utf8(&data_decrypted)?);
