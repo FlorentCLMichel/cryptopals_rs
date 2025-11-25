@@ -28,10 +28,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
     // The ciphertext with the highest maximum is likely the one which was encrypted with
     // QES-128-ECB.
     
-    let mut max_repeated_blocks = count_n_repeated_blocks(&ciphertexts[0], BLOCK_SIZE_BYTES);
+    let mut max_repeated_blocks = 0;
     let mut index_max_repeated_blocks = 0;
-    for i in 1 .. ciphertexts.len() {
-        let n_repated_blocks = count_n_repeated_blocks(&ciphertexts[i], BLOCK_SIZE_BYTES);
+    for (i, ciphertext) in ciphertexts.iter().enumerate() {
+        let n_repated_blocks = count_n_repeated_blocks(ciphertext, BLOCK_SIZE_BYTES);
         if n_repated_blocks > max_repeated_blocks {
             index_max_repeated_blocks = i;
             max_repeated_blocks = n_repated_blocks;
