@@ -63,6 +63,14 @@ pub fn avg_hamming_distance(data: &[u8], block_size: usize, n_blocks: usize) -> 
 }
 
 
+/// Count the maximum number of occurrences of a given block
+pub fn count_n_repeated_blocks(data: &[u8], block_size: usize) -> usize 
+{
+    // TODO (use a hashmap approach)
+    unimplemented!()
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
