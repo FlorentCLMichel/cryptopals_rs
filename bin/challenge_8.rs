@@ -31,10 +31,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
     let mut max_repeated_blocks = 0;
     let mut index_max_repeated_blocks = 0;
     for (i, ciphertext) in ciphertexts.iter().enumerate() {
-        let n_repated_blocks = count_n_repeated_blocks(ciphertext, BLOCK_SIZE_BYTES);
-        if n_repated_blocks > max_repeated_blocks {
+        let n_repeated_blocks = count_n_repeated_blocks(ciphertext, BLOCK_SIZE_BYTES);
+        if n_repeated_blocks > max_repeated_blocks {
             index_max_repeated_blocks = i;
-            max_repeated_blocks = n_repated_blocks;
+            max_repeated_blocks = n_repeated_blocks;
         }
     }
 

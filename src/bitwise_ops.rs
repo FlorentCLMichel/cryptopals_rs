@@ -1,3 +1,6 @@
+use std::collections::HashMap;
+
+
 /// Xor two sequences of bytes. 
 ///
 /// The output has the same length as the shortest input.
@@ -66,8 +69,17 @@ pub fn avg_hamming_distance(data: &[u8], block_size: usize, n_blocks: usize) -> 
 /// Count the maximum number of occurrences of a given block
 pub fn count_n_repeated_blocks(data: &[u8], block_size: usize) -> usize 
 {
-    // TODO (use a hashmap approach)
-    unimplemented!()
+    let mut n_occurences_blocks = HashMap::new();
+    for block in data.chunks(block_size) {
+        *n_occurences_blocks.entry(block).or_insert(0) += 1;
+    }
+    let mut max_occurences = 0;
+    for (_, val) in n_occurences_blocks.into_iter() {
+        if val > max_occurences {
+            max_occurences = val;
+        }
+    }
+    max_occurences
 }
 
 
@@ -114,5 +126,13 @@ mod tests {
         let res = edit_distance_str(&lhs, &rhs);
         let expected = 37;
         assert_eq!(res, expected);
+    }
+    
+    #[test]
+    fn count_n_repeated_blocks_1() {
+        let x = vec![1, 2, 2, 3, 3, 4, 5, 5, 5, 5, 4, 5, 5, 5, 5];
+        assert_eq!(count_n_repeated_blocks(&x,1), 8);
+        assert_eq!(count_n_repeated_blocks(&x,3), 2);
+        assert_eq!(count_n_repeated_blocks(&x,5), 2);
     }
 }
